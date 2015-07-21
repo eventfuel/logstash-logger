@@ -9,6 +9,7 @@ module LogStashLogger
     include TaggedLogging::Formatter
 
     def call(severity, time, progname, message)
+      message = message.force_encoding(Encoding::UTF_8)
       event = build_event(message, severity, time)
       "#{event.to_json}\n"
     end
